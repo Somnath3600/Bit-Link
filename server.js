@@ -2,12 +2,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const ShortUrl = require('./models/shortUrl');
-
 const app = express();
-const PORT = process.env.PORT || 5000;
+
+const path = require('path');
 
 // Connect to MongoDB
-mongoose.connect('mongodb://0.0.0.0:27017/BitLink');
+mongoose.connect('mongodb+srv://Somnath3600:somnath2001@cluster0.teofova.mongodb.net/');
 
 // Define URL model
 const Url = mongoose.model('Url', new mongoose.Schema({
@@ -18,20 +18,9 @@ const Url = mongoose.model('Url', new mongoose.Schema({
 // Middleware to parse JSON requests
 app.use(express.json());
 
+ app.set('view engine', 'ejs')
 
 
-
-
-
-// mongoose.connect('mongodb://localhost/urlShortener', {
-//     useNewUrlParser: true, 
-//     useUnifiedTopology: true
-// })
-
-// mongoose.connect('mongodb://localhost/BitLink')
-
-
-app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false}))
 
 
@@ -55,5 +44,11 @@ app.get('/:shortUrl', async (req, res) => {
   res.redirect(shortUrl.full)
 })
 
-app.listen(process.env.PORT || 5000);
+
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
